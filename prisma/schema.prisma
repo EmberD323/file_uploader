@@ -1,0 +1,25 @@
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id      Int      @id @default(autoincrement())
+  first_name String
+  last_name String
+  email   String   @unique
+  password   String
+}
+// CREATE TABLE IF NOT EXISTS users (
+//   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+//   first_name TEXT,
+//   last_name TEXT,
+//   email VARCHAR(150),
+//   password VARCHAR(150),
+// );
