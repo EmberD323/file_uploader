@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <h1>Sign Up</h1>
+  <%- include("partials/errors.ejs") %>
+  <form action="" method="POST">
+    <label for="firstName">First Name</label>
+    <input id="firstName" name="firstName" placeholder="Jane" type="text" required/>
+    <label for="lastName">Last Name</label>
+    <input id="lastName" name="lastName" placeholder="Doe" type="text" required/>
+    <label for="username">Email</label>
+    <input id="username" name="username" placeholder="email@example.com" type="email" required/>
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" required/>
+    <label for="passwordConfirm">Confirm Password</label>
+    <input id="passwordConfirm" name="passwordConfirm" type="password" required/>
+    <button>Sign Up</button>
+  </form>
+</body>
+</html>
