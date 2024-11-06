@@ -3,6 +3,8 @@ const indexRouter = Router();
 const passport = require("passport");
 const userController = require("../controllers/userController");
 const fileController = require("../controllers/fileController");
+const folderController = require("../controllers/folderController");
+
 const multer  = require('multer')
 const upload = multer({ dest: 'uploads/' })
 
@@ -31,5 +33,8 @@ indexRouter.get("/log-out", (req, res, next) => {
 
 indexRouter.get("/file-upload", fileController.fileUploadGet);
 indexRouter.post("/file-upload", upload.single('file'), fileController.fileUploadPost);
+
+indexRouter.get("/add-folder", folderController.folderAddGet);
+indexRouter.post("/add-folder",folderController.folderAddPost);
 
 module.exports = indexRouter;

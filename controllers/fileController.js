@@ -13,12 +13,10 @@ async function fileUploadPost(req, res) {
         });
     }
     console.log(req.file)
-    //next steps: validate file attactched
     //add file database to schema
     //link to user one(user) to many (files)
     //add files to data base
     res.redirect("/");
-
 }
 
 
