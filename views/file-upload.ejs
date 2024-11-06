@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+
+  <% if (locals.user) {%>
+    <h1>Upload a file</h1>
+    <%- include("partials/errors.ejs") %>
+    <form action="/file-upload" method="post" enctype="multipart/form-data">
+      <input type="file" name="file" />
+      <button type="submit">Upload</button>
+    </form>
+
+  <% } else { %>
+    <%- include("partials/log-in.ejs") %>
+  <%}%>
+</body>
+</html>

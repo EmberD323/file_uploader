@@ -7,18 +7,12 @@
 <body>
   <% if (locals.user) {%>
     <h1>WELCOME BACK <%= user.first_name %></h1>
+    <a href="/file-upload">Upload file</a>
     <a href="/log-out">LOG OUT</a>
-  <% } else { %>
-    <h1>please log in</h1>
 
-    <form action="/log-in" method="POST">
-      <label for="username">Email</label>
-      <input id="username" name="username" placeholder="Email" type="text" required/>
-      <label for="password">Password</label>
-      <input id="password" name="password" type="password" required/>
-      <button>Log In</button>
-    </form>
-    <a href="/sign-up">Or Sign Up!</a>
+
+  <% } else { %>
+    <%- include("partials/log-in.ejs") %>
   <%}%>
 </body>
 </html>
