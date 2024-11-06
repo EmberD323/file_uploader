@@ -1,15 +1,13 @@
 const bcrypt = require("bcryptjs");
 const { body, validationResult } = require("express-validator");
 const db = require("../prisma/queries.js");
+const tools = require("./modules/tools.js");
 
-function capitalize(string){
-  if(typeof string !== "string"){throw new Error("A string is required as input - only letters")}
-    let capitalCharacter = string.charAt(0).toUpperCase()
-    let nonCapital = string.slice(1).toLowerCase();
-    let result = capitalCharacter.concat(nonCapital);
 
-    return result
+async function signUpGet (req, res) {
+    res.render("sign-up-form");
 }
+//sign up validation and handling
 const validateSignUp= [
     body("firstName").trim()
       .escape()
@@ -32,7 +30,6 @@ const validateSignUp= [
           return value === req.body.password;
       }).withMessage(`Passwords must match.`)
 ];
-
 signUpPost = [
     validateSignUp,
     async function(req, res) {
@@ -43,7 +40,7 @@ signUpPost = [
                     errors: errors.array(),
                 });
             }
-            await db.createUser(req.body.username,capitalize(req.body.firstName),capitalize(req.body.lastName),hashedPassword)
+            await db.createUser(req.body.username,tools.capitalize(req.body.firstName),tools.capitalize(req.body.lastName),hashedPassword)
             const users = await db.findAllUsers()
             console.log(users)
             res.redirect("/")
@@ -52,5 +49,7 @@ signUpPost = [
 ]
 
 module.exports = {
+    signUpGet,
     signUpPost,
+    
 };
