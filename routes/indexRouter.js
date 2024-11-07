@@ -51,7 +51,6 @@ indexRouter.get("/:folderName/:fileName/details",fileController.fileDetailsGet);
 indexRouter.get("/:folderName",fileController.filesDisplayGet);
 
 indexRouter.get("/", async function(req, res) {
-    console.log(req.user)
     if(req.user !=undefined){
         const folders = await db.findFoldersByUserID(req.user);
         return res.render("index", {

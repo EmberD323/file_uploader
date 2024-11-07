@@ -7,9 +7,10 @@
 <body>
   <% if (locals.user) {%>
     <h1><%= folder.folder_name %></h1>
+    <a href="/">Homepage</a>
     <%- include("partials/files.ejs") %>
     <%- include("partials/file-upload.ejs") %>
-    <a href="/">Homepage</a>
+    
 
 
   <% } else { %>

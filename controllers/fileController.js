@@ -1,5 +1,7 @@
 const db = require("../prisma/queries.js");
-
+const {createClient} = require("@supabase/supabase-js")
+require("dotenv").config();
+const supabase = createClient("https://xbabombxfjcblagbhqua.supabase.co", process.env.SUPABASE_KEY)
 
 async function fileUploadGet (req, res) {
     res.render("file-upload", { user: req.user });
@@ -31,8 +33,24 @@ async function fileUploadPost(req, res) {
             errors:[{msg:"Filename already exists in folder"}]
         });
     }
-    await db.createFile(fileName,path,fileSize,req.user,folder)
-    return res.redirect("/"+folder.folder_name);
+
+    ///upload
+    console.log(req.file);
+    const { data, error } = await supabase.storage.from('files').upload(req.user.id+"/"+folder.id+"/"+fileName, req.file)
+    if (error) {
+      // Handle error
+      console.log(error)
+      return res.redirect("/"+folder.folder_name);
+      
+    } else {
+      // Handle success
+      console.log("uploaded to cloud!")
+      await db.createFile(fileName,path,fileSize,req.user,folder)
+      return res.redirect("/"+folder.folder_name);
+    }
+
+    //add to db
+    
    
 }
 async function filesDisplayGet (req, res) {
@@ -80,7 +98,6 @@ async function fileDeletePost (req, res) {
     return res.redirect("/"+folder.folder_name)
 }
 async function fileDetailsGet (req, res) {
-    console.log(req.params)
     const folder = await db.findFolderByNameAndId(req.params.folderName,req.user);
     const files = await db.findFilesByFolderID(folder);
     const file = await db.findFileByNameAndFolderId(req.params.fileName,folder);
@@ -90,8 +107,6 @@ async function fileDetailsGet (req, res) {
         folder:folder,
         fileDetail:file
     });
-    console.log(folder)
-    console.log(file)
 }
 
 module.exports = {

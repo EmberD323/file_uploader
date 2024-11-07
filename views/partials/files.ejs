@@ -7,6 +7,9 @@
             <%- include("./fileDetails.ejs") %>
         <%}%>
     <%}%>
+    <form action="/<%= folder.folder_name %>/<%= file.file_name %>/downloadfile" method="GET" style="display:inline;">
+        <button type="submit" >Download</button>
+    </form> 
     <form action="/<%= folder.folder_name %>/<%= file.file_name %>/renamefile" method="GET" style="display:inline;">
         <button type="submit" >Rename</button>
     </form> 
