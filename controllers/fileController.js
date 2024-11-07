@@ -37,15 +37,14 @@ async function fileUploadPost(req, res) {
     const { data, error } = await supabase.storage.from('files').upload(req.user.id+"/"+folder.id+"/"+fileName, req.file)
     if (error) {
       console.log(error)
-      return res.redirect("/"+folder.folder_name);
     } else {
       //new path 
       const { data } = supabase.storage.from('files').getPublicUrl(req.user.id+"/"+folder.id+"/"+fileName)
       const supabasePath = data.publicUrl;
       //add to database
       await db.createFile(fileName,supabasePath,fileSize,req.user,folder)
-      return res.redirect("/"+folder.folder_name);
     }
+    return res.redirect("/"+folder.folder_name);
 }
 async function filesDisplayGet (req, res) {
     const folder = await db.findFolderByNameAndId(req.params.folderName,req.user);
@@ -79,16 +78,27 @@ async function fileRenamePost (req, res) {
         });
         
     }
-    //rename
     const file = await db.findFileByNameAndFolderId(req.params.fileName,folder);
-    await db.updateFileName(file,newName)
+    //rename on supabase
+    const { data, error } = await supabase.storage.from('files').move(req.user.id+"/"+folder.id+"/"+file.file_name, req.user.id+"/"+folder.id+"/"+newName)
+    if (error) {
+        console.log(error)
+    }else{//rename in db
+        await db.updateFileName(file,newName)
+    }
     return res.redirect("/"+folder.folder_name)
 }
 
 async function fileDeletePost (req, res) {
     const folder = await db.findFolderByNameAndId(req.params.folderName,req.user);
     const file = await db.findFileByNameAndFolderId(req.params.fileName,folder);
-    await db.deleteFile(file.id);
+    //delete on supabase
+    const { data, error } =  await supabase.storage.from('files').remove([req.user.id+"/"+folder.id+"/"+file.file_name])
+    if (error) {
+        console.log(error)
+    }else{//delete from db
+        await db.deleteFile(file.id);
+    }
     return res.redirect("/"+folder.folder_name)
 }
 async function fileDetailsGet (req, res) {
