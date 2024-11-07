@@ -24,7 +24,7 @@ model User {
 
 model Folder{
   id          Int      @id @default(autoincrement())
-  folder_name String
+  folder_name String   
   createdAt   DateTime @default(now())
   files       File[]
   user        User     @relation(fields: [userId], references: [id])
@@ -34,7 +34,8 @@ model Folder{
 
 model File{
   id          Int      @id @default(autoincrement())
-  file_name   String
+  file_name   String   
+  file_path   String   
   uploadedAt  DateTime @default(now())
   user        User     @relation(fields: [userId], references: [id])
   userId      Int

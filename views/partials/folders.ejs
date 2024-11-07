@@ -1,0 +1,6 @@
+<ul>
+    <% folders.forEach(function(folder) { %>
+    <a href="/<%= folder.folder_name %>"><%= folder.folder_name %> </a> 
+    <div>Created: <%= folder.createdAt %></div>
+    <% }); %>
+</ul>

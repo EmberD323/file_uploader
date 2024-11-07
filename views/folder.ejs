@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <% if (locals.user) {%>
+    <h1>Folder Name</h1>
+    <%- include("partials/files.ejs") %>
+    <%- include("partials/file-upload.ejs") %>
+    <a href="/">Homepage</a>
+
+
+  <% } else { %>
+    <%- include("partials/log-in.ejs") %>
+  <%}%>
+</body>
+</html>

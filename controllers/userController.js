@@ -41,8 +41,6 @@ signUpPost = [
                 });
             }
             await db.createUser(req.body.username,tools.capitalize(req.body.firstName),tools.capitalize(req.body.lastName),hashedPassword)
-            const users = await db.findAllUsers()
-            console.log(users)
             res.redirect("/")
           });
     }

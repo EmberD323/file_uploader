@@ -22,10 +22,11 @@ async function createFolder(name,user) {
     })
     return 
 }
-async function createFile(name,user,folder) {
+async function createFile(name,path,user,folder) {
     await prisma.file.create({
         data: {
             file_name:name,
+            file_path:path,
             userId:user.id,
             folderId:folder.id
         }
@@ -65,6 +66,15 @@ async function findFoldersByUserID(user) {
     })
     return folders
 }
+async function findFolderByNameAndId(folderName,user) {
+    const folders = await prisma.folder.findMany({
+        where: {
+          folder_name:folderName,
+          userId:user.id
+        },
+    })
+    return folders[0]
+}
 async function findAllFiles() {
     const files = await prisma.file.findMany()
     return files
@@ -94,6 +104,15 @@ async function findFilesByUserAndFolderID(user,folder) {
     })
     return files
 }
+async function findFileByNameAndFolderId(fileName,folder) {
+    const files = await prisma.file.findMany({
+        where: {
+          file_name:fileName,
+          folderId:folder.id
+        },
+    })
+    return files[0]
+}
 //update
 async function updateFolder(folderID,newName) {
     await prisma.folder.update({
@@ -106,10 +125,10 @@ async function updateFolder(folderID,newName) {
       })
     return
 }
-async function updateFileName(fileID,newName) {
+async function updateFileName(file,newName) {
     await prisma.file.update({
         where: {
-            id: fileID,
+            id: file.id,
         },
         data: {
           file_name: newName,
@@ -181,10 +200,12 @@ module.exports = {
     findUserByID,
     findAllFolders,
     findFoldersByUserID,
+    findFolderByNameAndId,
     findAllFiles,
     findFilesByUserID,
     findFilesByFolderID,
     findFilesByUserAndFolderID,
+    findFileByNameAndFolderId,
     updateFolder,
     updateFileName,
     updateFileFolder,
