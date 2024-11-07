@@ -1,6 +1,12 @@
 <ul>
     <% files.forEach(function(file) { %>
     <div><%= file.file_name %> </div>
+    <a href="/<%= folder.folder_name %>/<%= file.file_name %>/details">details</a>
+    <%if(fileDetail != undefined){%>
+        <% if (fileDetail.file_name == file.file_name) {%>
+            <%- include("./fileDetails.ejs") %>
+        <%}%>
+    <%}%>
     <form action="/<%= folder.folder_name %>/<%= file.file_name %>/renamefile" method="GET" style="display:inline;">
         <button type="submit" >Rename</button>
     </form> 

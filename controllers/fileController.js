@@ -14,34 +14,35 @@ async function fileUploadPost(req, res) {
             user: req.user,
             files: files,
             folder:folder,
+            fileDetail:undefined,
             errors:[{msg:"Choose a file to upload"}]
         });
     }
     const fileName = req.file.originalname;
     const path =req.file.path;
+    const fileSize =req.file.size;
     const file = await db.findFileByNameAndFolderId(fileName,folder);
     if (file) {
         return res.render("folder", { 
             user: req.user,
             files: files,
             folder:folder,
+            fileDetail:undefined,
             errors:[{msg:"Filename already exists in folder"}]
         });
     }
-    await db.createFile(fileName,path,req.user,folder)
+    await db.createFile(fileName,path,fileSize,req.user,folder)
     return res.redirect("/"+folder.folder_name);
    
 }
 async function filesDisplayGet (req, res) {
-    console.log(req.user)
-    console.log(req.params)
     const folder = await db.findFolderByNameAndId(req.params.folderName,req.user);
-    console.log(folder);
     const files = await db.findFilesByFolderID(folder);
     res.render("folder", { 
         user: req.user,
         files: files,
-        folder:folder
+        folder:folder,
+        fileDetail:undefined,
     });
 }
 async function fileRenameGet (req, res) {
@@ -78,6 +79,20 @@ async function fileDeletePost (req, res) {
     await db.deleteFile(file.id);
     return res.redirect("/"+folder.folder_name)
 }
+async function fileDetailsGet (req, res) {
+    console.log(req.params)
+    const folder = await db.findFolderByNameAndId(req.params.folderName,req.user);
+    const files = await db.findFilesByFolderID(folder);
+    const file = await db.findFileByNameAndFolderId(req.params.fileName,folder);
+    res.render("folder", { 
+        user: req.user,
+        files: files,
+        folder:folder,
+        fileDetail:file
+    });
+    console.log(folder)
+    console.log(file)
+}
 
 module.exports = {
     fileUploadGet,
@@ -85,5 +100,6 @@ module.exports = {
     filesDisplayGet,
     fileRenameGet,
     fileRenamePost,
-    fileDeletePost
+    fileDeletePost,
+    fileDetailsGet
 };

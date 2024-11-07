@@ -46,6 +46,7 @@ indexRouter.get("/:folderName/:fileName/renameFile",fileController.fileRenameGet
 indexRouter.post("/:folderName/:fileName/renameFile",fileController.fileRenamePost);
 indexRouter.post("/:folderName/:fileName/deleteFile",fileController.fileDeletePost);
 
+indexRouter.get("/:folderName/:fileName/details",fileController.fileDetailsGet);
 
 indexRouter.get("/:folderName",fileController.filesDisplayGet);
 

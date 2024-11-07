@@ -22,11 +22,12 @@ async function createFolder(name,user) {
     })
     return 
 }
-async function createFile(name,path,user,folder) {
+async function createFile(name,path,filesize,user,folder) {
     await prisma.file.create({
         data: {
             file_name:name,
             file_path:path,
+            size_bytes: filesize,
             userId:user.id,
             folderId:folder.id
         }
