@@ -21,7 +21,6 @@ async function fileUploadPost(req, res) {
         });
     }
     const fileName = req.file.originalname;
-    const path =req.file.path;
     const fileSize =req.file.size;
     const file = await db.findFileByNameAndFolderId(fileName,folder);
     if (file) {
@@ -35,23 +34,18 @@ async function fileUploadPost(req, res) {
     }
 
     ///upload
-    console.log(req.file);
     const { data, error } = await supabase.storage.from('files').upload(req.user.id+"/"+folder.id+"/"+fileName, req.file)
     if (error) {
-      // Handle error
       console.log(error)
       return res.redirect("/"+folder.folder_name);
-      
     } else {
-      // Handle success
-      console.log("uploaded to cloud!")
-      await db.createFile(fileName,path,fileSize,req.user,folder)
+      //new path 
+      const { data } = supabase.storage.from('files').getPublicUrl(req.user.id+"/"+folder.id+"/"+fileName)
+      const supabasePath = data.publicUrl;
+      //add to database
+      await db.createFile(fileName,supabasePath,fileSize,req.user,folder)
       return res.redirect("/"+folder.folder_name);
     }
-
-    //add to db
-    
-   
 }
 async function filesDisplayGet (req, res) {
     const folder = await db.findFolderByNameAndId(req.params.folderName,req.user);
