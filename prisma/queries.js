@@ -130,13 +130,14 @@ async function updateFolder(folder,user,newName) {
       })
     return
 }
-async function updateFileName(file,newName) {
+async function updateFileName(file,newName,newPath) {
     await prisma.file.update({
         where: {
             id: file.id,
         },
         data: {
           file_name: newName,
+          file_path:newPath
         }
       })
     return

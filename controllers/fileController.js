@@ -33,7 +33,7 @@ async function fileUploadPost(req, res) {
         });
     }
     //upload
-    const supabasePath = req.user.id+"/"+folder.id+"/"+fileName
+    const supabasePath = req.user.id+"/"+folder.id+"/"+fileName;
     const { data, error } = await supabase.storage
     .from('files')
     .upload(supabasePath, req.file.buffer, {
@@ -81,12 +81,13 @@ async function fileRenamePost (req, res) {
         
     }
     const file = await db.findFileByNameAndFolderId(req.params.fileName,folder);
+    const newPath = req.user.id+"/"+folder.id+"/"+newName;
     //rename on supabase
     const { data, error } = await supabase.storage.from('files').move(req.user.id+"/"+folder.id+"/"+file.file_name, req.user.id+"/"+folder.id+"/"+newName)
     if (error) {
         console.log(error)
     }else{//rename in db
-        await db.updateFileName(file,newName)
+        await db.updateFileName(file,newName,newPath)
     }
     return res.redirect("/"+folder.folder_name)
 }
@@ -118,12 +119,10 @@ async function fileDownloadGet (req,res){
     const folder = await db.findFolderByNameAndId(req.params.folderName,req.user);
     const file = await db.findFileByNameAndFolderId(req.params.fileName,folder);
     const filePath = file.file_path;
-    console.log(filePath)
     const { data, error } = await supabase.storage.from('files').download(filePath)
     if (error) {
         console.log(error)
     }
-    console.log(data)
     // Set the header for file download
     res.setHeader(
         "Content-Disposition",
