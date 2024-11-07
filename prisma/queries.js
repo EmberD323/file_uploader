@@ -68,6 +68,9 @@ async function findFoldersByUserID(user) {
 }
 async function findFolderByNameAndId(folderName,user) {
     const folders = await prisma.folder.findMany({
+        include: {
+            files: true,
+          },
         where: {
           folder_name:folderName,
           userId:user.id
@@ -114,10 +117,11 @@ async function findFileByNameAndFolderId(fileName,folder) {
     return files[0]
 }
 //update
-async function updateFolder(folderID,newName) {
+async function updateFolder(folder,user,newName) {
     await prisma.folder.update({
         where: {
-            id: folderID,
+            id: folder.id,
+            userId:user.id
         },
         data: {
           folder_name: newName,

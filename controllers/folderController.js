@@ -32,9 +32,56 @@ folderAddPost = [
     }
 ]
 
+async function folderRenameGet (req, res) {
+    const folder = await db.findFolderByNameAndId(req.params.folderName,req.user);
+    res.render("rename-folder", { 
+        user: req.user,
+        folder: folder
+    });
+}
 
+folderRenamePost = [
+    validatefolder,
+    async function (req, res) {
+        const folder = await db.findFolderByNameAndId(req.params.folderName,req.user);
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.render("rename-folder", {
+                user: req.user,
+                folder: folder,
+                errors: errors.array(),
+            });
+        }
+        await db.updateFolder(folder,req.user,req.body.folderName);
+        res.redirect("/");
+        return
+    }
+]
+
+async function folderDeletePost (req, res) {
+    try{
+        const folder = await db.findFolderByNameAndId(req.params.folderName,req.user);
+        console.log()
+        if(folder.files[0] != undefined) throw "Folder contains files, delete files before deleting folder";
+        await db.deleteFolder(folder.id);
+        return res.redirect("/")
+    }
+    catch(err){
+        const folders = await db.findFoldersByUserID(req.user);
+        console.log(err)
+        return res.render("index", {
+            user: req.user,
+            folders: folders,
+            errors: [{msg:err}],
+        });
+    }
+    
+}
 module.exports = {
     folderAddGet,
-    folderAddPost
+    folderAddPost,
+    folderRenameGet,
+    folderRenamePost,
+    folderDeletePost
     
 };

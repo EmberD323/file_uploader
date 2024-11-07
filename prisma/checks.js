@@ -16,7 +16,11 @@ async function main() {
     console.log("All Files")
     console.log(allFiles, { depth: null })
 
-    const allFolders = await prisma.folder.findMany()
+    const allFolders = await prisma.folder.findMany({
+      include: {
+        files: true,
+      }
+    })
     console.log("All Folders")
     console.log(allFolders, { depth: null })
 }

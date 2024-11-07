@@ -45,6 +45,10 @@ indexRouter.post("/file-upload", upload.single('file'), fileController.fileUploa
 indexRouter.get("/add-folder", folderController.folderAddGet);
 indexRouter.post("/add-folder",folderController.folderAddPost);
 
+indexRouter.get("/:folderName/renameFile",folderController.folderRenameGet);
+indexRouter.post("/:folderName/renameFile",folderController.folderRenamePost);
+indexRouter.post("/:folderName/deleteFile",folderController.folderDeletePost);
+
 indexRouter.get("/:folderName/:fileName/renameFile",fileController.fileRenameGet);
 indexRouter.post("/:folderName/:fileName/renameFile",fileController.fileRenamePost);
 indexRouter.post("/:folderName/:fileName/deleteFile",fileController.fileDeletePost);
