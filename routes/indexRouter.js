@@ -4,11 +4,13 @@ const passport = require("passport");
 const userController = require("../controllers/userController");
 const fileController = require("../controllers/fileController");
 const folderController = require("../controllers/folderController");
+
 const db = require("../prisma/queries.js");
 
 
 const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
+const storage = multer.memoryStorage()
+const upload  = multer({ storage: storage })
 
 
 
@@ -45,8 +47,9 @@ indexRouter.post("/:folderName/deleteFile",folderController.folderDeletePost);
 indexRouter.get("/:folderName/:fileName/renameFile",fileController.fileRenameGet);
 indexRouter.post("/:folderName/:fileName/renameFile",fileController.fileRenamePost);
 indexRouter.post("/:folderName/:fileName/deleteFile",fileController.fileDeletePost);
-
 indexRouter.get("/:folderName/:fileName/details",fileController.fileDetailsGet);
+
+indexRouter.get("/:folderName/:fileName/downloadFile",fileController.fileDownloadGet);
 
 indexRouter.get("/:folderName",fileController.filesDisplayGet);
 

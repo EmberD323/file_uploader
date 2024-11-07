@@ -32,15 +32,17 @@ async function fileUploadPost(req, res) {
             errors:[{msg:"Filename already exists in folder"}]
         });
     }
-
-    ///upload
-    const { data, error } = await supabase.storage.from('files').upload(req.user.id+"/"+folder.id+"/"+fileName, req.file)
+    //upload
+    const supabasePath = req.user.id+"/"+folder.id+"/"+fileName
+    const { data, error } = await supabase.storage
+    .from('files')
+    .upload(supabasePath, req.file.buffer, {
+        upsert: false,
+        contentType: req.file.mimetype,
+    })
     if (error) {
       console.log(error)
     } else {
-      //new path 
-      const { data } = supabase.storage.from('files').getPublicUrl(req.user.id+"/"+folder.id+"/"+fileName)
-      const supabasePath = data.publicUrl;
       //add to database
       await db.createFile(fileName,supabasePath,fileSize,req.user,folder)
     }
@@ -112,7 +114,26 @@ async function fileDetailsGet (req, res) {
         fileDetail:file
     });
 }
-
+async function fileDownloadGet (req,res){
+    const folder = await db.findFolderByNameAndId(req.params.folderName,req.user);
+    const file = await db.findFileByNameAndFolderId(req.params.fileName,folder);
+    const filePath = file.file_path;
+    console.log(filePath)
+    const { data, error } = await supabase.storage.from('files').download(filePath)
+    if (error) {
+        console.log(error)
+    }
+    console.log(data)
+    // Set the header for file download
+    res.setHeader(
+        "Content-Disposition",
+        `attachment; filename="${file.file_name}"`,
+      );
+    // Convert Blob to Buffer and send
+    const arrayBuffer = await data.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    res.send(buffer);
+}
 module.exports = {
     fileUploadGet,
     fileUploadPost,
@@ -120,5 +141,6 @@ module.exports = {
     fileRenameGet,
     fileRenamePost,
     fileDeletePost,
-    fileDetailsGet
+    fileDetailsGet,
+    fileDownloadGet
 };
