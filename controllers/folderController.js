@@ -3,7 +3,13 @@ const { body, validationResult } = require("express-validator");
 
 
 async function folderAddGet (req, res) {
-    res.render("add-folder", { user: req.user });
+    const folders = await db.findFoldersByUserID(req.user);
+    return res.render("index", {
+        user: req.user,
+        folders: folders,
+        folder_upload:true,
+    });
+    
 }
 
 const validatefolder= [
@@ -22,8 +28,11 @@ folderAddPost = [
     async function (req, res) {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.render("add-folder", {
+            const folders = await db.findFoldersByUserID(req.user);
+            return res.render("index", {
                 user: req.user,
+                folders: folders,
+                folder_upload:true,
                 errors: errors.array(),
             });
         }
@@ -72,6 +81,7 @@ async function folderDeletePost (req, res) {
         return res.render("index", {
             user: req.user,
             folders: folders,
+            folder_upload:false,
             errors: [{msg:err}],
         });
     }

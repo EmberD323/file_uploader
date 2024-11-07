@@ -11,14 +11,7 @@ const multer  = require('multer')
 const upload = multer({ dest: 'uploads/' })
 
 
-indexRouter.get("/", async function(req, res) {
-    const folders = await db.findFoldersByUserID(req.user);
-    res.render("index", {
-        user: req.user,
-        folders: folders
-        }
-    )}
-);
+
 indexRouter.get("/sign-up", userController.signUpGet);
 indexRouter.post("/sign-up", userController.signUpPost);
 //login
@@ -55,5 +48,19 @@ indexRouter.post("/:folderName/:fileName/deleteFile",fileController.fileDeletePo
 
 
 indexRouter.get("/:folderName",fileController.filesDisplayGet);
+
+indexRouter.get("/", async function(req, res) {
+    console.log(req.user)
+    if(req.user !=undefined){
+        const folders = await db.findFoldersByUserID(req.user);
+        return res.render("index", {
+            user: req.user,
+            folders: folders,
+            folder_upload:false,
+        })
+    }
+    res.render("index")
+    res.end();
+});
 
 module.exports = indexRouter;

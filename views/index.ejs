@@ -7,9 +7,12 @@
 <body>
   <% if (locals.user) {%>
     <h1>WELCOME BACK <%= user.first_name %></h1>
-    <a href="/add-folder">Add a folder</a>
-    <%- include("partials/folders.ejs") %>
     <a href="/log-out">LOG OUT</a>
+    <%- include("partials/folders.ejs") %>
+    <a href="/add-folder">Add a folder</a>
+    <% if (folder_upload == true) {%>
+      <%- include("partials/add-folder.ejs") %>
+    <%}%>
 
 
   <% } else { %>

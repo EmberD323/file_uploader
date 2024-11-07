@@ -1,0 +1,8 @@
+
+    <h1>Add a folder</h1>
+    <%- include("./errors.ejs") %>
+    <form action="/add-folder" method="post">
+        <label for="folderName">Name</label>
+        <input id="folderName" name="folderName" placeholder="Folder Name" type="text" required/>
+        <button type="submit">Add Folder</button>
+    </form>

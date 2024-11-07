@@ -33,7 +33,10 @@ async function fileUploadPost(req, res) {
    
 }
 async function filesDisplayGet (req, res) {
+    console.log(req.user)
+    console.log(req.params)
     const folder = await db.findFolderByNameAndId(req.params.folderName,req.user);
+    console.log(folder);
     const files = await db.findFilesByFolderID(folder);
     res.render("folder", { 
         user: req.user,
