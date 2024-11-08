@@ -2,23 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title></title>
+  
+  <link rel="stylesheet" href="/header.css">
+  <link rel="stylesheet" href="/login.css">
+  <link rel="stylesheet" href="/signup.css">
+  <title>Sign-Up</title>
 </head>
 <body>
-  <h1>Sign Up</h1>
-  <%- include("partials/errors.ejs") %>
-  <form action="" method="POST">
-    <label for="firstName">First Name</label>
-    <input id="firstName" name="firstName" placeholder="Jane" type="text" required/>
-    <label for="lastName">Last Name</label>
-    <input id="lastName" name="lastName" placeholder="Doe" type="text" required/>
-    <label for="username">Email</label>
-    <input id="username" name="username" placeholder="email@example.com" type="email" required/>
-    <label for="password">Password</label>
-    <input id="password" name="password" type="password" required/>
-    <label for="passwordConfirm">Confirm Password</label>
-    <input id="passwordConfirm" name="passwordConfirm" type="password" required/>
-    <button>Sign Up</button>
-  </form>
+  <%- include("partials/header.ejs") %>
+  <h2>Sign Up</h2>
+  <div class="signUp">
+    
+    <form action="" method="POST">
+      <label for="firstName">First Name</label>
+      <input id="firstName" name="firstName" placeholder="Jane" type="text" required/>
+      <label for="lastName">Last Name</label>
+      <input id="lastName" name="lastName" placeholder="Doe" type="text" required/>
+      <label for="username">Email</label>
+      <input id="username" name="username" placeholder="email@example.com" type="email" required/>
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" required/>
+      <label for="passwordConfirm">Confirm Password</label>
+      <input id="passwordConfirm" name="passwordConfirm" type="password" required/>
+      <button>Sign Up</button>
+    </form>
+    <%- include("partials/errors.ejs") %>
+  </div>
 </body>
 </html>

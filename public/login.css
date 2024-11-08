@@ -1,4 +1,4 @@
-.login{
+.login,.signUp{
     background-color: var(--palatinate);
     display: flex;
     flex-wrap: wrap;
@@ -18,7 +18,7 @@
    font-size: 40px;
   }
   
-  form.logInPost{
+  form.logInPost,.signUp>form{
     display: flex;
     flex-direction: column;
     gap:15px;
