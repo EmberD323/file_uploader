@@ -59,6 +59,7 @@ indexRouter.get("/", async function(req, res) {
         return res.render("index", {
             user: req.user,
             folders: folders,
+            folderRename:false,
             folder_upload:false,
         })
     }

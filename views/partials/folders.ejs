@@ -13,6 +13,11 @@
         <div class="folderInfo">
             <a href="/<%= folder.folder_name %>"><img class="folderImage" src="/images/icons8-folder-50.png" alt="folder-white-outline" ></a>
             <a href="/<%= folder.folder_name %>"><%= folder.folder_name %> </a>
+            <%if(folderRename != undefined){%>
+                <% if (folderRename.folder_name == folder.folder_name) {%>
+                    <%- include("./rename-folder.ejs") %>
+                <%}%>
+            <%}%>
             <div>Created: <%= folder.createdAt.toDateString() %></div>
         </div>
         

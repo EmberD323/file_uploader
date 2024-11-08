@@ -8,6 +8,7 @@ async function folderAddGet (req, res) {
         user: req.user,
         folders: folders,
         folder_upload:true,
+        folderRename:false
     });
     
 }
@@ -33,6 +34,7 @@ folderAddPost = [
                 user: req.user,
                 folders: folders,
                 folder_upload:true,
+                folderRename:false,
                 errors: errors.array(),
             });
         }
@@ -43,10 +45,14 @@ folderAddPost = [
 
 async function folderRenameGet (req, res) {
     const folder = await db.findFolderByNameAndId(req.params.folderName,req.user);
-    res.render("rename-folder", { 
+    const folders = await db.findFoldersByUserID(req.user);
+    return res.render("index", {
         user: req.user,
-        folder: folder
+        folders: folders,
+        folder_upload:false,
+        folderRename:folder
     });
+    
 }
 
 folderRenamePost = [
@@ -83,6 +89,7 @@ async function folderDeletePost (req, res) {
             folders: folders,
             folder_upload:false,
             errors: [{msg:err}],
+            folderRename:false
         });
     }
     
