@@ -5,11 +5,8 @@ const supabase = createClient("https://xbabombxfjcblagbhqua.supabase.co", proces
 
 
 async function fileUploadPost(req, res) {
-    console.log(req.params)
     const folder = await db.findFolderByNameAndId(req.params.folderName,req.user);
-    console.log(folder)
     const files = await db.findFilesByFolderID(folder);
-    console.log(files)
     //validate
     if (req.file == undefined) {
         return res.render("folder", { 

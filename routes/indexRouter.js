@@ -66,7 +66,6 @@ indexRouter.get("/", async function(req, res) {
             folder_upload:false,
         })
     }
-    console.log("hi")
     res.render("index")
     return res.end();
 });

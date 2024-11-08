@@ -79,7 +79,6 @@ folderRenamePost = [
 async function folderDeletePost (req, res) {
     try{
         const folder = await db.findFolderByNameAndId(req.params.folderName,req.user);
-        console.log()
         if(folder.files[0] != undefined) throw "Folder contains files, delete files before deleting folder";
         await db.deleteFolder(folder.id);
         return res.redirect("/")
