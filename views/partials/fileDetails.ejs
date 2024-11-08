@@ -1,6 +1,11 @@
-<ul>
-    <li>Name: <%=fileDetail.file_name %></li>
-    <li>Path: <%=fileDetail.file_path %></li>
-    <li>Uploaded: <%=fileDetail.uploadedAt %></li>
-    <li>Size: <%=((fileDetail.size_bytes)/1000000).toFixed(2) %> MB</li>
+<ul class="detailList">
+    <div class="info">
+        <li>Name: <%=fileDetail.file_name %></li>
+        <li>Path: <%=fileDetail.file_path %></li>
+        <li>Uploaded: <%=fileDetail.uploadedAt.toDateString()  %> @ <%=fileDetail.uploadedAt.getHours()%>:<%=fileDetail.uploadedAt.getMinutes()%></li>
+        <li>Size: <%=((fileDetail.size_bytes)/1000000).toFixed(2) %> MB</li>
+    </div>
+    <form action="/<%= folder.folder_name %>" method="GET" style="display:inline;">
+        <button type="submit">Close</button>
+    </form>
 </ul>

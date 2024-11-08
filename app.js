@@ -86,7 +86,10 @@ app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   next();
 });
-
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).send(err);
+});
 app.use("/", indexRouter);
 
 app.listen(3000, () => console.log("app listening on port 3000!"));

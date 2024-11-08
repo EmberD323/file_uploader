@@ -1,0 +1,31 @@
+/*padding:10px 70px 25px;*/
+.fileInfo>div{
+    font-size: 22px;
+    margin-top: 10px;
+}
+.fileInfo>a{
+    font-size: 15px;
+}
+.detailList{
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+
+
+.fileUploadForm{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    align-items: center;
+}
+.fileUploadForm>button{
+    display:block;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    font-size: 25px;
+    border: 0px;
+}
+

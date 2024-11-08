@@ -50,7 +50,7 @@ async function folderRenameGet (req, res) {
         user: req.user,
         folders: folders,
         folder_upload:false,
-        folderRename:folder
+        folderRename:folder,
     });
     
 }
@@ -59,13 +59,16 @@ folderRenamePost = [
     validatefolder,
     async function (req, res) {
         const folder = await db.findFolderByNameAndId(req.params.folderName,req.user);
+        const folders = await db.findFoldersByUserID(req.user);
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.render("rename-folder", {
+            return res.render("index", {
                 user: req.user,
-                folder: folder,
-                errors: errors.array(),
-            });
+                folders: folders,
+                folder_upload:false,
+                folderRename:folder,
+                errors: errors.array()
+            })
         }
         await db.updateFolder(folder,req.user,req.body.folderName);
         res.redirect("/");

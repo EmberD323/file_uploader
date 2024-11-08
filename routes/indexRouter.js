@@ -21,7 +21,7 @@ indexRouter.post(
     "/log-in",
     passport.authenticate("local", {
       successRedirect: "/",
-      failureRedirect: "/"
+      failureRedirect: "/",
     })
 );
 //logout

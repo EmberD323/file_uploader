@@ -5,7 +5,11 @@ npx prisma migrate dev --name name_name: updating schema
 supabase storage set up - userid,folderid,filename
 next steps:
 1)Styling:
-f)rename folder - maybe a prompt
-g)delete folder
+f)folder view - done
+g)folder details - done
+h) folder uplaod - done
+i)folder view heading - done
+j)signup page
+k)rename file
 2)log in error include
 3)read me

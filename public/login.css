@@ -1,0 +1,75 @@
+.login{
+    background-color: var(--palatinate);
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 600px;
+    min-height: 300px;
+    flex-direction: column;
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%, -50%);
+    padding:10px 50px;
+    border-radius: 25px;
+    align-items: center;
+  }
+  
+  .login>h2{
+   font-size: 40px;
+  }
+  
+  form.logInPost{
+    display: flex;
+    flex-direction: column;
+    gap:15px;
+    font-size: 20px;
+    align-items: center;
+  }
+  form.logInPost>.username,.password{
+    display: flex;
+    gap:20px;
+  }
+  input{
+    border-radius: 5px;
+  }
+  input:hover{
+    box-shadow: var(--dark-green-2) 0px 0px 15px 0px; 
+  }
+  form.logInPost>.username{
+    gap:57px;
+  }
+  button{
+    font-family: "Lato", sans-serif;
+    border-radius: 5px;
+    background-color: var(--magnolia);
+  }
+  form.logInPost>button{
+    font-size: 15px;
+    display: inline-block;
+    width: 100px;
+  }
+  button:hover{
+    box-shadow: var(--dark-green-2) 0px 0px 15px 0px; 
+  }
+  button:active{
+    background-color: var(--dark-green-2);
+    color: var(--magnolia);
+  }
+  .login>a{
+    color: black;
+    font-size: 15px;
+    position: fixed;
+    bottom:10%
+  }
+  h2{
+    padding: 15px 70px;
+    font-size: 30px;
+  }
+  ul.error{
+    list-style-type: none;
+    color: var(--fulvous);
+    padding: 0px;
+  }
+  input:invalid:focus{
+    background-color: var(--fulvous);
+  }

@@ -1,7 +1,8 @@
+<div class="uploadFile">
+  <form action="/file-upload" method="post" enctype="multipart/form-data" class="fileUploadForm">
+    <input type="file" name="file" />
+    <button type="submit">+</button>
+  </form>
+  <%- include("./errors.ejs") %>
+</div>
 
-    <h2>Upload a file</h2>
-    <%- include("./errors.ejs") %>
-    <form action="/file-upload" method="post" enctype="multipart/form-data">
-      <input type="file" name="file" />
-      <button type="submit">Upload</button>
-    </form>
