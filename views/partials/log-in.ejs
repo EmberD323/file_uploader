@@ -1,9 +1,18 @@
-<h1>please log in</h1>
-    <form action="/log-in" method="POST">
+<div class="login">
+  <h2>Log in</h2>
+  <form action="/log-in" method="POST" class="logInPost">
+    <div class="username">
       <label for="username">Email</label>
-      <input id="username" name="username" placeholder="Email" type="text" required/>
+      <input id="username" name="username" placeholder="example@domain.com" type="text" required/>
+    </div>
+    <div class="password">
       <label for="password">Password</label>
       <input id="password" name="password" type="password" required/>
-      <button>Log In</button>
-    </form>
-    <a href="/sign-up">Or Sign Up!</a>
+    </div>
+    <button>Log In</button>
+  </form>
+  <a href="/sign-up">Or sign up here!</a>
+ 
+</div>
+
+    

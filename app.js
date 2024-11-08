@@ -13,11 +13,12 @@ const { PrismaClient } = require('@prisma/client')
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 const prisma = new PrismaClient()
 const indexRouter = require("./routes/indexRouter");
-
-
 const app = express();
+
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+const assetsPath = path.join(__dirname, "public");
+app.use(express.static(assetsPath));
 
 app.use(session({
   cookie: {
@@ -38,8 +39,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: true }));
-
-
 //setting up the LocalStrategy
 passport.use(
     new LocalStrategy(async (username, password, done) => {
@@ -63,13 +62,11 @@ passport.use(
         return done(err);
       }
     })
-  );
-
+);
 //sessions and serialization
 passport.serializeUser((user, done) => {
   done(null, user.id);
-});
-  
+});  
 passport.deserializeUser(async (id, done) => {
   try {
     
@@ -84,19 +81,12 @@ passport.deserializeUser(async (id, done) => {
     done(err);
   }
 });
-
-
-  //current user set local
-
+//current user set local
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   next();
 });
 
 app.use("/", indexRouter);
-
-
-
-  
 
 app.listen(3000, () => console.log("app listening on port 3000!"));

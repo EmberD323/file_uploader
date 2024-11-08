@@ -1,0 +1,126 @@
+:root {
+  margin:0px;
+  box-sizing: border-box;
+  --dark-green: #012622ff;
+  --dark-green-2: #003b36ff;
+  --magnolia: #ece5f0ff;
+  --fulvous: #e98a15ff;
+  --palatinate: #59114dff;
+  font-family: "Lato", sans-serif;
+}
+
+body{
+  color:var(--magnolia);
+  background-color: var(--dark-green-2);
+  padding:20px 50px;
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+}
+.nameAndLogo{
+  display: flex;
+  align-items: center;
+  gap:10px;
+}
+.headerImage{
+  width:50px;
+  height: 50px;
+  animation: jump-on-hover 1.5s linear infinite;  
+  animation-play-state: paused;
+
+}
+.headerImage:hover{
+  animation-play-state: running;              
+}
+@keyframes jump-on-hover { 
+  0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 
+  40% {transform: translateY(-15px);} 
+  60% {transform: translateY(-5px);} 
+}
+.login{
+  background-color: var(--palatinate);
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 600px;
+  min-height: 300px;
+  flex-direction: column;
+  position:fixed;
+  top: 50%;
+  left: 50%;
+  transform:translate(-50%, -50%);
+  padding:10px 50px;
+  border-radius: 25px;
+  align-items: center;
+}
+
+.login>h2{
+ font-size: 40px;
+}
+
+form.logInPost{
+  display: flex;
+  flex-direction: column;
+  gap:15px;
+  font-size: 20px;
+  align-items: center;
+}
+form.logInPost>.username,.password{
+  display: flex;
+  gap:20px;
+}
+input{
+  border-radius: 5px;
+}
+input:hover{
+  box-shadow: var(--dark-green-2) 0px 0px 15px 0px; 
+}
+form.logInPost>.username{
+  gap:57px;
+}
+button{
+  font-family: "Lato", sans-serif;
+  border-radius: 5px;
+  background-color: var(--magnolia);
+}
+form.logInPost>button{
+  font-size: 15px;
+  display: inline-block;
+  width: 100px;
+}
+button:hover{
+  box-shadow: var(--dark-green-2) 0px 0px 15px 0px; 
+}
+button:active{
+  background-color: var(--dark-green-2);
+  color: var(--magnolia);
+}
+.login>a{
+  color: black;
+  font-size: 15px;
+  position: fixed;
+  bottom:10%
+}
+/*
+
+.myButton:hover {
+ box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
+    background: #1C6EA4; }
+    .myButton:active {
+    background: #144E75; }
+    animation-name: slide-in-to-centre;
+  animation-duration: 1s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+ 
+@keyframes slide-in-to-centre {
+  from {
+    transform: translate(0%);
+  }
+
+  to {
+    transform: translate(100%);
+  }
+}*/
