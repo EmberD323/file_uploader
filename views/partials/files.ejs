@@ -1,4 +1,4 @@
-<div class="files">
+
         <% files.forEach(function(file) { %> 
             <div class="fileContainer">
                 <div class="fileButtons">
@@ -20,7 +20,7 @@
                             <%- include("./rename-file.ejs") %>
                         <%}%>
                     <%}%>
-                    <a href="/<%= folder.folder_name %>/<%= file.file_name %>/details">details</a>
+                    <a class="detailLink" href="/<%= folder.folder_name %>/<%= file.file_name %>/details">details</a>
                     <%if(fileDetail != undefined){%>
                         <% if (fileDetail.file_name == file.file_name) {%>
                             <%- include("./fileDetails.ejs") %>
@@ -30,8 +30,6 @@
                 
             </div>
         <% }); %>
-        <div class="fileContainer">
-            <%- include("./file-upload.ejs") %>
-        </div>
-</div>
+        
+
 

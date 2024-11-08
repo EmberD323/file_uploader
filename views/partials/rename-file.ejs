@@ -6,6 +6,8 @@
           <input id="fileName" name="fileName" value="<%= fileRename.file_name %>" type="text" required/>
           <button type="submit">Rename</button>
       </form>
-      <div class="error"><%= error.msg %></div>
+      <% if (error != false) {%>
+        <div class="error"><%= error.msg %></div>
+      <%}%>
     </div>
 

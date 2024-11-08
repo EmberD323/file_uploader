@@ -6,13 +6,15 @@
 .fileInfo>a{
     font-size: 15px;
 }
+.detailLink{
+    color: white
+}
 .detailList{
     font-size: 15px;
     display: flex;
     flex-direction: column;
     gap:10px;
 }
-
 
 .fileUploadForm{
     display: flex;

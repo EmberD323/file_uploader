@@ -34,11 +34,12 @@ indexRouter.get("/log-out", (req, res, next) => {
     });
 });
 
-indexRouter.get("/file-upload", fileController.fileUploadGet);
-indexRouter.post("/file-upload", upload.single('file'), fileController.fileUploadPost);
+
 
 indexRouter.get("/add-folder", folderController.folderAddGet);
 indexRouter.post("/add-folder",folderController.folderAddPost);
+
+indexRouter.post("/:folderName/file-upload", upload.single('file'), fileController.fileUploadPost);
 
 indexRouter.get("/:folderName/renameFile",folderController.folderRenameGet);
 indexRouter.post("/:folderName/renameFile",folderController.folderRenamePost);
@@ -51,10 +52,12 @@ indexRouter.get("/:folderName/:fileName/details",fileController.fileDetailsGet);
 
 indexRouter.get("/:folderName/:fileName/downloadFile",fileController.fileDownloadGet);
 
-indexRouter.get("/:folderName",fileController.filesDisplayGet);
+indexRouter.get("/user/:folderName",fileController.filesDisplayGet);
 
 indexRouter.get("/", async function(req, res) {
+    
     if(req.user !=undefined){
+        
         const folders = await db.findFoldersByUserID(req.user);
         return res.render("index", {
             user: req.user,
@@ -63,8 +66,9 @@ indexRouter.get("/", async function(req, res) {
             folder_upload:false,
         })
     }
+    console.log("hi")
     res.render("index")
-    res.end();
+    return res.end();
 });
 
 module.exports = indexRouter;

@@ -3,13 +3,13 @@ const {createClient} = require("@supabase/supabase-js")
 require("dotenv").config();
 const supabase = createClient("https://xbabombxfjcblagbhqua.supabase.co", process.env.SUPABASE_KEY)
 
-async function fileUploadGet (req, res) {
-    res.render("file-upload", { user: req.user });
-}
 
 async function fileUploadPost(req, res) {
+    console.log(req.params)
     const folder = await db.findFolderByNameAndId(req.params.folderName,req.user);
+    console.log(folder)
     const files = await db.findFilesByFolderID(folder);
+    console.log(files)
     //validate
     if (req.file == undefined) {
         return res.render("folder", { 
@@ -48,7 +48,7 @@ async function fileUploadPost(req, res) {
       //add to database
       await db.createFile(fileName,supabasePath,fileSize,req.user,folder)
     }
-    return res.redirect("/"+folder.folder_name);
+    return res.redirect("/user/"+folder.folder_name);
 }
 async function filesDisplayGet (req, res) {
     const folder = await db.findFolderByNameAndId(req.params.folderName,req.user);
@@ -59,6 +59,7 @@ async function filesDisplayGet (req, res) {
         folder:folder,
         fileRename:false,
         fileDetail:undefined,
+        error:false
     });
 }
 async function fileRenameGet (req, res) {
@@ -71,6 +72,7 @@ async function fileRenameGet (req, res) {
         folder:folder,
         fileRename:file,
         fileDetail:undefined,
+        error:false
     });
 }
 
@@ -100,7 +102,7 @@ async function fileRenamePost (req, res) {
     }else{//rename in db
         await db.updateFileName(file,newName,newPath)
     }
-    return res.redirect("/"+folder.folder_name)
+    return res.redirect("/user/"+folder.folder_name)
 }
 
 async function fileDeletePost (req, res) {
@@ -113,7 +115,7 @@ async function fileDeletePost (req, res) {
     }else{//delete from db
         await db.deleteFile(file.id);
     }
-    return res.redirect("/"+folder.folder_name)
+    return res.redirect("/user/"+folder.folder_name)
 }
 async function fileDetailsGet (req, res) {
     const folder = await db.findFolderByNameAndId(req.params.folderName,req.user);
@@ -124,7 +126,8 @@ async function fileDetailsGet (req, res) {
         files: files,
         folder:folder,
         fileRename:false,
-        fileDetail:file
+        fileDetail:file,
+        error:false
     });
 }
 async function fileDownloadGet (req,res){
@@ -146,7 +149,7 @@ async function fileDownloadGet (req,res){
     res.send(buffer);
 }
 module.exports = {
-    fileUploadGet,
+  
     fileUploadPost,
     filesDisplayGet,
     fileRenameGet,

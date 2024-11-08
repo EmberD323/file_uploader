@@ -12,6 +12,7 @@
     padding:10px 50px;
     border-radius: 25px;
     align-items: center;
+    box-shadow: black 0px 0px 15px 0px; 
   }
   
   .login>h2{
