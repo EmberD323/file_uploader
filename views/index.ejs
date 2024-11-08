@@ -12,13 +12,16 @@
   <%- include("partials/header.ejs") %>
   
   <% if (locals.user) {%>
-    <h1>WELCOME BACK <%= user.first_name %></h1>
+    <h2><%= user.first_name %>'s Folders</h2>
     <%- include("partials/folders.ejs") %>
-    <a href="/add-folder">Add a folder</a>
+    
+    <a class="addFolderLink" href="/add-folder">
+      <img class="plusImage" src="/images/icons8-plus-50.png" alt="plus-in-a-circle"> 
+      <div>Add a folder</div>
+    </a>
     <% if (folder_upload == true) {%>
       <%- include("partials/add-folder.ejs") %>
     <%}%>
-
 
   <% } else { %>
     <%- include("partials/log-in.ejs") %>

@@ -1,11 +1,12 @@
 
 <div class="header">
-    <div class="nameAndLogo">
+    <a href="/" class="nameAndLogo">
         <h1>File Drive</h1>
-        <a href="/"><img class="headerImage" src="/images/icons8-file-100.png" alt="white-file-with-paperclip"></a>
-        
-    </div>
+        <img class="headerImage" src="/images/icons8-file-100.png" alt="white-file-with-paperclip">
+    </a>
     <% if (locals.user) {%>
-        <a href="/log-out">LOG OUT</a>
+            
+        <a href="/log-out"><img class="logOutImage"src="/images/icons8-log-out-50.png" alt="white-door-with-exit-arrow"></a>
+        
     <%}%>
 </div>
