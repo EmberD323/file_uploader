@@ -1,15 +1,20 @@
-file uplaoder project - to build a stripped down version of a personal storage service eg google drive.
+# File uploader project
+To build a stripped down version of a personal storage service eg google drive.
 
-//notes for me
-npx prisma migrate dev --name name_name: updating schema
-supabase storage set up - userid,folderid,filename
-next steps:
-1)Styling:
-j)signup page -Done
-2)log in error include -done
+## Features
 
-3)read me
-4)new database
-5)edit file not working - fixed
-6) details cliocked hard to see - fixed
-7) upload file goes to my folder 2 not req folder-fixed
+- User authentication with Passport.js and session management
+- File upload and download functionality
+- Folder organization system (Create, Read, Update, Delete)
+- Cloud storage integration with Supabase
+- File metadata tracking (name, size, upload time)
+
+## Tech Stack
+
+- **Backend**: Express.js
+- **Database**: PostgreSQL with Prisma ORM, stored on railway
+- **Authentication**: Passport.js with Local Strategy
+- **Session Management**: express-session with @quixo3/prisma-session-store
+- **File Upload**: Multer
+- **Cloud Storage**: Supabase Storage
+- **Password Hashing**: bcryptjs
