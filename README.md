@@ -9,7 +9,7 @@ f)folder view - done
 g)folder details - done
 h) folder uplaod - done
 i)folder view heading - done
-j)signup page
-k)rename file
+j)signup page 
+k)rename file-done
 2)log in error include
 3)read me

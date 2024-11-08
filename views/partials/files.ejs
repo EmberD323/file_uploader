@@ -15,6 +15,11 @@
                 </div>
                 <div class="fileInfo">
                     <div><%= file.file_name %> </div>
+                    <%if(fileRename != undefined){%>
+                        <% if (fileRename.file_name == file.file_name) {%>
+                            <%- include("./rename-file.ejs") %>
+                        <%}%>
+                    <%}%>
                     <a href="/<%= folder.folder_name %>/<%= file.file_name %>/details">details</a>
                     <%if(fileDetail != undefined){%>
                         <% if (fileDetail.file_name == file.file_name) {%>

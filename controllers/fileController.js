@@ -17,6 +17,7 @@ async function fileUploadPost(req, res) {
             files: files,
             folder:folder,
             fileDetail:undefined,
+            fileRename:false,
             errors:[{msg:"Choose a file to upload"}]
         });
     }
@@ -29,6 +30,7 @@ async function fileUploadPost(req, res) {
             files: files,
             folder:folder,
             fileDetail:undefined,
+            fileRename:false,
             errors:[{msg:"Filename already exists in folder"}]
         });
     }
@@ -55,32 +57,41 @@ async function filesDisplayGet (req, res) {
         user: req.user,
         files: files,
         folder:folder,
+        fileRename:false,
         fileDetail:undefined,
     });
 }
 async function fileRenameGet (req, res) {
     const folder = await db.findFolderByNameAndId(req.params.folderName,req.user);
     const file = await db.findFileByNameAndFolderId(req.params.fileName,folder);
-    res.render("rename-file", { 
+    const files = await db.findFilesByFolderID(folder);
+    res.render("folder", { 
         user: req.user,
-        file: file
+        files: files,
+        folder:folder,
+        fileRename:file,
+        fileDetail:undefined,
     });
 }
 
 async function fileRenamePost (req, res) {
     const folder = await db.findFolderByNameAndId(req.params.folderName,req.user);
+    const file = await db.findFileByNameAndFolderId(req.params.fileName,folder);
     //validate
     const newName = req.body.fileName;
     const fileCheck = await db.findFileByNameAndFolderId(newName,folder);
+    const files = await db.findFilesByFolderID(folder);
     if (fileCheck) {
-        return res.render("rename-file", { 
+        return res.render("folder", { 
             user: req.user,
-            file: file,
-            errors:[{msg:"Filename already exists in folder"}]
+            files: files,
+            folder:folder,
+            fileRename:file,
+            fileDetail:undefined,
+            error:{msg:"Filename already exists in folder"}
         });
         
     }
-    const file = await db.findFileByNameAndFolderId(req.params.fileName,folder);
     const newPath = req.user.id+"/"+folder.id+"/"+newName;
     //rename on supabase
     const { data, error } = await supabase.storage.from('files').move(req.user.id+"/"+folder.id+"/"+file.file_name, req.user.id+"/"+folder.id+"/"+newName)
@@ -112,6 +123,7 @@ async function fileDetailsGet (req, res) {
         user: req.user,
         files: files,
         folder:folder,
+        fileRename:false,
         fileDetail:file
     });
 }
